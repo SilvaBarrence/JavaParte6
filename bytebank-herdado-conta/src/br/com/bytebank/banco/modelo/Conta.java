@@ -17,6 +17,7 @@ public abstract class Conta {
 
     /**
      * Contrutor para inicializar o objeto Conto a partir da agencia e numero
+     *
      * @param agencia
      * @param numero
      */
@@ -34,18 +35,19 @@ public abstract class Conta {
 
     /**
      * Valor precisa ser maior que o saldo
+     *
      * @param valor
      * @throws SaldoInsulficienteException
      */
-    public void saca(double valor)  throws SaldoInsulficienteException{
+    public void saca(double valor) throws SaldoInsulficienteException {
 
-        if (this.saldo < valor){
+        if (this.saldo < valor) {
             throw new SaldoInsulficienteException("Saldo " + this.saldo + ", valor: " + valor);
         }
         this.saldo -= valor;
     }
 
-    public void transfere(double valor, Conta destino) throws SaldoInsulficienteException{
+    public void transfere(double valor, Conta destino) throws SaldoInsulficienteException {
         this.saca(valor);
         destino.deposita(valor);
     }
@@ -91,7 +93,23 @@ public abstract class Conta {
     }
 
     @Override
+    public boolean equals(Object ref) {
+
+        Conta outra = (Conta) ref;
+
+        if (this.agencia != outra.agencia) {
+            return false;
+        }
+
+        if (this.numero != outra.numero) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
     public String toString() {
-        return "Número "+ this.numero+", Agencia: "+ this.agencia;
+        return "Número " + this.numero + ", Agencia: " + this.agencia;
     }
 }
